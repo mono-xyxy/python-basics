@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Veda — AI Systems Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0d0b;
+  --s1: #141412;
+  --s2: #1c1c19;
+  --s3: #242420;
+  --b1: rgba(255,255,255,0.06);
+  --b2: rgba(255,255,255,0.11);
+  --b3: rgba(255,255,255,0.18);
+  --text: #e2dfd5;
+  --dim: #7a7870;
+  --faint: #3d3d38;
+  --gold: #d4a853;
+  --gold2: #f0c878;
+  --green: #4daa82;
+  --green2: #6ecfa1;
+  --red: #c4614a;
+  --ff-head: 'Syne', sans-serif;
+  --ff-serif: 'Instrument Serif', Georgia, serif;
+  --ff-mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-head);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 28px 120px;
+}
+
+/* HERO */
+.hero { padding: 90px 0 60px; animation: fadeUp 0.7s ease both; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.dot-live {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green2);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.35; transform:scale(0.75); }
+}
+.eyebrow-text {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+.hero-name {
+  font-family: var(--ff-head);
+  font-size: clamp(52px, 11vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.hero-name span { color: var(--gold); }
+
+.hero-role {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: clamp(18px, 3vw, 22px);
+  color: var(--dim);
+  margin-bottom: 36px;
+}
+
+.hero-statement {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.85;
+  max-width: 540px;
+  font-weight: 400;
+  border-left: 2px solid var(--gold);
+  padding-left: 18px;
+  margin-bottom: 40px;
+}
+.hero-statement strong { color: #fff; font-weight: 600; }
+
+.cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--gold);
+  color: #0d0d0b;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+.btn-ghost {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  color: var(--dim);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--faint);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--dim); }
+
+.rule { height: 1px; background: var(--b1); margin: 56px 0; }
+
+/* SECTION LABEL */
+.sec-label {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-label::after {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: var(--b2);
+}
+
+/* WHAT I DO GRID */
+.do-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  border: 1px solid var(--b1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+@media(max-width:520px){ .do-grid { grid-template-columns: 1fr; } }
+.do-cell {
+  background: var(--s1);
+  padding: 20px 22px;
+  transition: background 0.2s;
+}
+.do-cell:hover { background: var(--s2); }
+.do-cell-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dot-tag { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.dt-gold { background: var(--gold); }
+.dt-green { background: var(--green2); }
+.dt-red   { background: var(--red); }
+.dt-dim   { background: var(--dim); }
+.do-cell-list { list-style: none; font-size: 12px; color: var(--dim); line-height: 2.1; }
+
+/* SERVICES */
+.services { display: flex; flex-direction: column; gap: 3px; }
+.svc {
+  background: var(--s1);
+  border-radius: 10px;
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.svc:hover { background: var(--s2); border-color: var(--b2); }
+.svc.hot {
+  border-color: rgba(212,168,83,0.2);
+  background: rgba(212,168,83,0.04);
+}
+.svc.hot:hover { border-color: rgba(212,168,83,0.35); background: rgba(212,168,83,0.07); }
+
+.svc-badge {
+  display: inline-block;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.badge-gold   { background: rgba(212,168,83,0.14);  color: var(--gold2); }
+.badge-green  { background: rgba(77,170,130,0.14);  color: var(--green2); }
+.badge-red    { background: rgba(196,97,74,0.18);   color: #e8836a; }
+.badge-dim    { background: var(--s3);              color: var(--dim); }
+
+.svc-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -0.01em; }
+.svc-desc { font-size: 13px; color: var(--dim); line-height: 1.65; }
+.svc-price { font-family: var(--ff-mono); font-size: 12px; color: var(--gold); white-space: nowrap; padding-top: 4px; text-align: right; }
+
+/* PROCESS */
+.steps { display: flex; flex-direction: column; }
+.step { display: flex; gap: 20px; }
+.step-track { display: flex; flex-direction: column; align-items: center; width: 28px; flex-shrink: 0; }
+.step-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--b2);
+  background: var(--s2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.step-connector {
+  width: 1px;
+  flex: 1;
+  min-height: 28px;
+  background: linear-gradient(to bottom, var(--b2), var(--b1));
+  margin: 4px 0;
+}
+.step:last-child .step-connector { display: none; }
+.step-content { padding: 3px 0 28px; }
+.step:last-child .step-content { padding-bottom: 0; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.step-body { font-size: 13px; color: var(--dim); line-height: 1.65; }
+
+/* WHY ME */
+.why-list { display: flex; flex-direction: column; gap: 14px; }
+.why-item { display: flex; gap: 14px; align-items: flex-start; }
+.why-num { font-family: var(--ff-mono); font-size: 10px; color: var(--faint); padding-top: 3px; min-width: 16px; }
+.why-text { font-size: 14px; color: var(--dim); line-height: 1.7; }
+.why-text strong { color: var(--text); font-weight: 600; }
+
+/* FIT */
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:480px){ .fit-grid { grid-template-columns: 1fr; } }
+.fit-card { border-radius: 10px; padding: 18px 20px; border: 1px solid var(--b1); }
+.fit-card.yes { background: rgba(77,170,130,0.05); border-color: rgba(77,170,130,0.18); }
+.fit-card.no  { background: rgba(196,97,74,0.04);  border-color: rgba(196,97,74,0.15); }
+.fit-head {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.fit-card.yes .fit-head { color: var(--green2); }
+.fit-card.no  .fit-head { color: #e8836a; }
+.fit-items { list-style: none; }
+.fit-items li { font-size: 13px; color: var(--dim); padding: 4px 0; display: flex; gap: 8px; }
+.fit-card.yes .fit-items li::before { content: '✓'; color: var(--green2); }
+.fit-card.no  .fit-items li::before { content: '✗'; color: #e8836a; }
+
+/* CONTACT */
+.contact-wrap {
+  background: var(--s1);
+  border: 1px solid var(--b2);
+  border-radius: 14px;
+  padding: 32px;
+  margin-bottom: 20px;
+}
+.contact-lede {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.contact-lede em { font-style: normal; color: var(--gold); }
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--b1);
+  font-size: 14px;
+}
+.clabel {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  min-width: 60px;
+}
+.cval { color: var(--text); }
+.cval a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.cval a:hover { border-color: var(--gold); }
+.resp-badge {
+  margin-left: auto;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  background: rgba(77,170,130,0.1);
+  border: 1px solid rgba(77,170,130,0.22);
+  color: var(--green2);
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+/* AVAIL */
+.avail-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+.ap {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(77,170,130,0.2);
+  background: rgba(77,170,130,0.06);
+  color: var(--green2);
+  letter-spacing: 0.06em;
+}
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--b1);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-name { font-family: var(--ff-mono); font-size: 11px; color: var(--faint); letter-spacing: 0.1em; }
+.footer-name span { color: var(--gold); }
+.footer-link { font-family: var(--ff-mono); font-size: 11px; color: var(--dim); text-decoration: none; letter-spacing: 0.06em; transition: color 0.2s; }
+.footer-link:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <div class="dot-live"></div>
+      <span class="eyebrow-text">Available for projects</span>
+    </div>
+    <div class="hero-name">Veda<span>.</span></div>
+    <div class="hero-role">AI Systems Engineer &amp; ML/DL Specialist</div>
+    <p class="hero-statement">
+      I build AI systems that <strong>actually work in production.</strong><br>
+      Not experiments. Not prototypes that fall apart at scale.<br>
+      If your pipeline is broken, your model isn't deploying, or you need something built right — <strong>I'm the person you call.</strong>
+    </p>
+    <div class="cta-row">
+      <a href="mailto:vedawork2003@gmail.com" class="btn-primary">Get in touch</a>
+      <a href="https://github.com/mono-xyxy" target="_blank" class="btn-ghost">github.com/mono-xyxy ↗</a>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- WHAT I DO -->
+  <div class="sec-label">What I work on</div>
+  <div class="do-grid">
+    <div class="do-cell">
+      <div class="do-cell-title"><span class="dot-tag dt-gold"></span>AI Systems</div>
+      <ul class="do-cell-list">
+        <li>ML / DL model development</li>
+        <li>LLM integrations & automation</li>
+        <li>NLP & Computer Vision</li>
+        <li>End-to-end deployment</li>
+      </ul>
+    </div>
+    <div class="do-cell">
+      <div class="do-cell-title"><span class="dot-tag dt-green"></span>Backend Engineering</div>
+      <ul class="do-cell-list">
+        <li>FastAPI / Flask APIs</li>
+        <li>Scalable architecture</li>
+        <li>Performance optimization</li>
+        <li>System reliability</li>
+      </ul>
+    </div>
+    <div class="do-cell">
+      <div class="do-cell-title"><span class="dot-tag dt-red"></span>Debugging & Rescue</div>
+      <ul class="do-cell-list">
+        <li>Production failure diagnosis</li>
+        <li>Broken ML pipeline recovery</li>
+        <li>Performance bottlenecks</li>
+        <li>Legacy system overhaul</li>
+      </ul>
+    </div>
+    <div class="do-cell">
+      <div class="do-cell-title"><span class="dot-tag dt-dim"></span>Enterprise</div>
+      <ul class="do-cell-list">
+        <li>Internal AI tools</li>
+        <li>Automation pipelines</li>
+        <li>Custom dashboards</li>
+        <li>Data infrastructure</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- SERVICES -->
+  <div class="sec-label">Services & pricing</div>
+  <div class="services">
+    <div class="svc hot">
+      <div class="svc-left">
+        <div class="svc-badge badge-gold">Flagship</div>
+        <div class="svc-name">AI Product Build (0 → 1)</div>
+        <div class="svc-desc">You have an idea. I'll take it from problem definition all the way to a deployed product — model, backend, and infrastructure included.</div>
+      </div>
+      <div><div class="svc-price">₹30K – ₹2L+</div></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <div class="svc-badge badge-green">Popular</div>
+        <div class="svc-name">AI Integration for Business</div>
+        <div class="svc-desc">Your product is live. I'll wire in automation, LLM workflows, and data pipelines without breaking what already works.</div>
+      </div>
+      <div><div class="svc-price">₹20K – ₹1.5L</div></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <div class="svc-badge badge-red">In demand</div>
+        <div class="svc-name">System Rescue</div>
+        <div class="svc-desc">Something's broken and the previous developer is gone. I diagnose fast, fix the root cause, and get you stable. The harder the problem, the better.</div>
+      </div>
+      <div><div class="svc-price">₹5K – ₹50K</div></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <div class="svc-badge badge-dim">Efficiency</div>
+        <div class="svc-name">Performance Optimization</div>
+        <div class="svc-desc">Slow APIs, expensive compute, poor scalability. I find where the waste is and fix it — usually without a full rewrite.</div>
+      </div>
+      <div><div class="svc-price">₹10K – ₹80K</div></div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- HOW I WORK -->
+  <div class="sec-label">How I work</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-track"><div class="step-circle">01</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Understand the actual problem</div>
+        <div class="step-body">I don't touch code until I know what's really broken or what really needs to be built. Most projects fail here before they start.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-track"><div class="step-circle">02</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Design before building</div>
+        <div class="step-body">Architecture decisions made upfront save weeks of rework. I map the system before writing line one.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-track"><div class="step-circle">03</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Move fast, stay clean</div>
+        <div class="step-body">MVPs in days, not weeks — but the code is something you can actually build on, not throwaway scaffolding.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-track"><div class="step-circle">04</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Ship for production, not demos</div>
+        <div class="step-body">Everything I build is meant to run in the real world — stable, observable, and maintainable by your team after I'm done.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- WHY ME -->
+  <div class="sec-label">Why me</div>
+  <div class="why-list">
+    <div class="why-item"><span class="why-num">—</span><span class="why-text"><strong>I'm a strong debugger.</strong> It's genuinely rare — most clients find me after someone else gave up on their problem.</span></div>
+    <div class="why-item"><span class="why-num">—</span><span class="why-text"><strong>I work on problems, not tickets.</strong> I don't need a perfectly scoped spec. I can figure out what needs to happen.</span></div>
+    <div class="why-item"><span class="why-num">—</span><span class="why-text"><strong>I think like an engineer, not a freelancer.</strong> I'm not here to bill hours — I want your system to actually work.</span></div>
+    <div class="why-item"><span class="why-num">—</span><span class="why-text"><strong>I take on few projects at a time.</strong> You get my full attention, not a place in a queue.</span></div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- FIT -->
+  <div class="sec-label">Is this a good fit?</div>
+  <div class="fit-grid">
+    <div class="fit-card yes">
+      <div class="fit-head">Right client</div>
+      <ul class="fit-items">
+        <li>Startups building AI products</li>
+        <li>Founders who need it done right</li>
+        <li>Teams stuck on hard problems</li>
+      </ul>
+    </div>
+    <div class="fit-card no">
+      <div class="fit-head">Not a good fit</div>
+      <ul class="fit-items">
+        <li>₹500 quick fixes</li>
+        <li>Academic homework</li>
+        <li>Copy-paste work</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- CONTACT -->
+  <div class="sec-label">Let's talk</div>
+  <div class="contact-wrap">
+    <div class="contact-lede">Tell me what you're trying to build or fix.<br>I'll tell you if I can help — and <em>how.</em></div>
+    <div class="contact-row">
+      <span class="clabel">Email</span>
+      <span class="cval"><a href="mailto:vedawork2003@gmail.com">vedawork2003@gmail.com</a></span>
+      <span class="resp-badge">≤ 24h</span>
+    </div>
+    <div class="contact-row">
+      <span class="clabel">GitHub</span>
+      <span class="cval"><a href="https://github.com/mono-xyxy" target="_blank">github.com/mono-xyxy</a></span>
+    </div>
+  </div>
+
+  <div class="avail-pills">
+    <span class="ap">● Freelance</span>
+    <span class="ap">● Contract</span>
+    <span class="ap">● Long-term</span>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-name"><span>Veda</span> · AI Systems Engineer</div>
+    <a href="mailto:vedawork2003@gmail.com" class="footer-link">vedawork2003@gmail.com</a>
+  </div>
+
+</div>
+</body>
+</html>
